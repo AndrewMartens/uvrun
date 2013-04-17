@@ -6,7 +6,7 @@ using namespace v8;
 
 Handle<Value> Run(const Arguments& args) {
   HandleScope scope;
-#ifdef OLD_UV_RUN_SIGNATURE
+#if (UV_VERSION_MAJOR == 0) && (UV_VERSION_MINOR < 9)
   uv_run(uv_default_loop());
 #else
     uv_run(uv_default_loop(), UV_RUN_DEFAULT);
@@ -16,7 +16,7 @@ Handle<Value> Run(const Arguments& args) {
 
 Handle<Value> RunOnce(const Arguments& args) {
   HandleScope scope;
-#ifdef OLD_UV_RUN_SIGNATURE
+#if (UV_VERSION_MAJOR == 0) && (UV_VERSION_MINOR < 9)
   int r = uv_run_once(uv_default_loop());
 #else
   int r = uv_run(uv_default_loop(), UV_RUN_ONCE);
